@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrderServiceImpl implements OrderService{
 
+    // final 을 사용하면 좋은점 , 초기화 단계에 값이(생성자값) 들어와야 되는데, 값을 입력을 안해주면 컴파일 오류가 발생, 그래서 알기 쉽다
     private final MemberRepository memberRepository; // 회원의 등급을 확인하기 위해 //final로 되어있으면, 생성자든 = 값 이든 할당되어야 한다.
     private final DiscountPolicy discountPolicy; // 어떠한 할인 정책에 따른 //인터페이스에만 의존하도록 설계를 변경
 
