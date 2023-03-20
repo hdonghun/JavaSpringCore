@@ -3,6 +3,9 @@ package hello.core.lifecycle;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 public class NetworkClient  {
 
     private String url;
@@ -28,14 +31,16 @@ public class NetworkClient  {
         System.out.println("close "+url);
     }
 
-    @Override // 의존 관계 주입이 끝나면, 호출해 주겠다.
-    public void afterPropertiesSet() throws Exception {
+    @PostConstruct
+    public void init() throws Exception {
+        System.out.println("NetworkClient.init");
         connect();
         call("초기화 연결 메시지");
     }
 
-    @Override
-    public void destroy() throws Exception {
+    @PreDestroy
+    public void close() throws Exception {
+        System.out.println("NetworkClient.close");
         disconnect();
     }
 }
