@@ -1,5 +1,6 @@
 package hello.core.order;
 
+import hello.core.annotation.MainDiscountPolicy;
 import hello.core.discount.DiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
@@ -8,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService{
 
     // final 을 사용하면 좋은점 , 초기화 단계에 값이(생성자값) 들어와야 되는데, 값을 입력을 안해주면 컴파일 오류가 발생, 그래서 알기 쉽다.
@@ -17,11 +18,11 @@ public class OrderServiceImpl implements OrderService{
     private final DiscountPolicy discountPolicy; // 어떠한 할인 정책에 따른 //인터페이스에만 의존하도록 설계를 변경
 
     // RequiredArgsConstructor이 아래와 같은 생성자 주입에 필요한 것들을 자동으로 만들어준다.
-//    @Autowired
-//    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
-//        this.memberRepository = memberRepository;
-//        this.discountPolicy = discountPolicy;
-//    }
+    @Autowired
+    public OrderServiceImpl(MemberRepository memberRepository, @MainDiscountPolicy DiscountPolicy discountPolicy) {
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+    }
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
